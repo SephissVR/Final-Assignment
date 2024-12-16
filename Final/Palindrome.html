@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palindrome Checker</title>
+
+    <!-- Add Google Font for styling -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+
+    <!-- Combined CSS for layout and styling -->
+    <style>
+        /* General reset for margins, padding, and box-sizing */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            font-family: 'Tangerine', serif;
+            background-color: #f0f8ff; /* Light blue background */
+            color: #ffffff; /* Dark text for readability */
+            text-align: center; /* Center text */
+            margin: 10;
+            font-size: 40px;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 30;
+        
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #cf13a0;
+        }
+
+        /* Navigation styling */
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 8px 16px;
+            background-color: #e1e1e1;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #ccc;
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        font-size: small;
+        }
+
+        /* Content styling for palindrome checker */
+        .content {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #000000;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(80, 80, 80, 0.1);
+            width: 80%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .result {
+            font-size: 40px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Glowing button style for palindrome checker */
+        .glow-on-hover {
+            width: 220px;
+            height: 50px;
+            border: none;
+            outline: none;
+            color: #fff;
+            background: #111;
+            cursor: pointer;
+            position: relative;
+            z-index: 0;
+            border-radius: 10px;
+        }
+
+        .glow-on-hover:before {
+            content: '';
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity .3s ease-in-out;
+            border-radius: 10px;
+        }
+
+        .glow-on-hover:active {
+            color: #000;
+        }
+
+        .glow-on-hover:active:after {
+            background: transparent;
+        }
+
+        .glow-on-hover:hover:before {
+            opacity: 1;
+        }
+
+        .glow-on-hover:after {
+            z-index: -1;
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #111;
+            left: 0;
+            top: 0;
+            border-radius: 10px;
+        }
+
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+
+        /* Paragraph styling */
+        p {
+            line-height: 1;
+        }
+        a{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: small;
+        }
+        /* Content section styling */
+        #content {
+            padding: 20px;
+            margin: 20px;
+        }
+
+        /* Contact info section */
+        .contact-info {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header for the page -->
+    <header>
+        <h1> Welcome to My CSC102 Palindrome Checker</h1>
+        <nav>
+            <ul>
+                <li><a href="Final_Home_project.html">Home Page</a></li>
+                <li><a href="Meme.html">Meme Page</a></li>
+                <li><a href="Craps.html">Game Page</a></li>
+                <li><a href="UserInput.html">User Input Validation</a></li>
+                <li><a href="Chart.html">Hockey Price chart</a></li>
+                <li><a href="Greeting.html">Personal greeting</a></li>
+                <li><a href="Boards.html">Objectives Page</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Page content for palindrome checker -->
+    <div class="content">
+        <h3>Check if your word or phrase is a palindrome (reads the same forward and backward).</h3>
+        <div id="result" class="result"></div>
+        <button class="glow-on-hover" onclick="checkPalindrome()">Check Another Word</button>
+    </div>
+          <audio id="palindromeSound" src="Assets/correct.mp3"></audio>
+          <audio id="nonPalindromeSound" src="Assets/wrong.mp3"></audio>
+    
+    <!-- JavaScript for palindrome check functionality -->
+    <script>
+        // Function to check if a string is a palindrome
+        function checkPalindrome() {
+            // Prompt user to enter a string
+            let userInput = prompt("Enter a string to check if it's a palindrome:");
+
+            // Check if the user pressed Cancel (no input)
+            if (userInput === null) {
+                return; // Exit function if no input
+            }
+
+            // Remove spaces and convert input to lowercase for comparison
+            let cleanedInput = userInput.replace(/\s+/g, '').toLowerCase();
+
+            // Reverse the cleaned input to compare with original
+            let reversedInput = cleanedInput.split('').reverse().join('');
+
+            // Determine if the cleaned input is a palindrome
+            if (cleanedInput === reversedInput) {
+                // Notify user if the string is a palindrome
+                document.getElementById('result').innerHTML = `<p><strong>${userInput}</strong> is a palindrome!</p>`;
+
+                // Play the palindrome sound
+                document.getElementById('palindromeSound').play();
+            } else {
+                // Notify user if the string is not a palindrome
+                document.getElementById('result').innerHTML = `<p><strong>${userInput}</strong> is not a palindrome.</p>`;
+
+                // Play the non-palindrome sound
+                document.getElementById('nonPalindromeSound').play();
+            }
+
+            // Ask user if they want to check for a different word
+            let continueChecking = confirm("Check a different word?");
+            if (continueChecking) {
+                checkPalindrome(); // If yes, call function again
+            }
+        }
+    </script>
+
+    <!-- Footer for the page -->
+    <footer>
+        <p>&copy; 2024 Palindrome Checker. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

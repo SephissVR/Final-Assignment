@@ -1,0 +1,184 @@
+<!--Anastasia Casagrande
+10/19/24
+CSC 102-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Input Validation</title>
+
+    <!-- Link to external stylesheets (if needed) -->
+    <link rel="stylesheet" href="information.css">
+    <script src="information.JS"></script>
+
+    <style>   
+        /* General reset and body styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: lightblue; /* Light blue background for the user input page */
+            color: #333;
+            text-align: center;
+            margin: 20px;
+        }
+
+        /* Header section */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 8px 16px;
+            background-color: #e1e1e1;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #ccc;
+        }
+
+        /* Input fields and button styling */
+        input {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Footer section */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+
+        #content {
+            padding: 20px;
+            margin: 20px;
+        }
+
+        /* Message display styling */
+        #message {
+            color: red;
+            font-size: 1.2em;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <!-- Header for the page -->
+    <header>
+        <h1>Welcome to My CSC102 User Input Validation Page</h1>
+        <nav>
+            <ul>
+                <li><a href="Final_Home_project.html">Home Page</a></li>
+                <li><a href="Meme.html">Meme Page</a></li>
+                <li><a href="Craps.html">Game Page</a></li>
+                <li><a href="Palindrome.html">Palindrome Page</a></li>
+                <li><a href="Chart.html">Hockey Price chart</a></li>
+                <li><a href="Greeting.html">Personal greeting</a></li>
+                <li><a href="Boards.html">Objectives Page</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Content section for User Input Validation -->
+    <h1>Welcome! Please Enter Your Information</h1>
+    
+    <!-- Input for first name -->
+    <input type="text" id="firstName" placeholder="First Name" required>
+    
+    <!-- Input for last name -->
+    <input type="text" id="lastName" placeholder="Last Name" required>
+    
+    <!-- Input for zip code -->
+    <input type="text" id="zipCode" placeholder="Zip Code (5 digits)" required>
+    
+    <!-- Button to submit the form -->
+    <button onclick="validateInputs()">Submit</button>
+
+    <p id="message"></p> <!-- Message display -->
+
+    <script>
+        // Function to validate user inputs
+        function validateInputs() {
+            // Get values from input fields
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const zipCode = document.getElementById('zipCode').value;
+
+            //  creating full name
+            const fullName = firstName + ' ' + lastName;
+
+            // Check if full name exceeds 20 characters
+            if (fullName.length > 20) {
+                document.getElementById('message').innerText = "Sorry but your name exceeds 20 characters!";
+                return; // Stop if invalid
+            }
+
+            // Check if zip code is valid (5 digits)
+            if (!/^\d{5}$/.test(zipCode)) {
+                document.getElementById('message').innerText = "Zip code must be 5 digits!";
+                return; // Stop if invalid
+            }
+
+            // If all inputs are valid, display the secret message
+            document.getElementById('message').innerText = "Welcome, Thank you for your information!";
+        }
+    </script>
+
+    <!-- Footer section -->
+    <footer>
+        <p>2024 Anastasia Casagrande - CSC 102</p>
+    </footer>
+
+</body>
+</html>

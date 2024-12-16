@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Greeting</title>
+
+    <!--CSS for the layout and design -->
+    <style>
+       /* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and overall page layout */
+body {
+    background-color: #E3F2FD; /* Soft blue background */
+    font-family: 'Arial', sans-serif; /* Simple, clean font */
+    color: #000000;  /* Blue text color */
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for content */
+.container {
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #BBDEFB; /* Light blue container */
+    border-radius: 10px;
+    width: 70%;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styles */
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Heading style */
+h1 {
+    color: white;
+    font-size: 2.5em;
+    line-height: 2;
+}
+h2{ color: #0277BD;
+    font-size: x-large;
+}
+
+/* Button styles */
+button {
+    padding: 10px 20px;
+    background-color: #0ca89b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #0277BD;
+}
+
+/* Output area for the greeting */
+.output {
+    margin-top: 20px;
+    font-size: 1.5em;
+    color: #1976D2;
+}
+
+/* Error message style */
+.error {
+    color: #D32F2F;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+/* Image styling */
+img {
+    display: block;
+    margin: 20px auto;
+    width: 200px;
+}
+
+/* Navigation bar styles */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 8px 16px;
+    background-color: #e1e1e1;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #ccc;
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My CSC102 Boards Page</h1>
+        <nav>
+            <ul>
+                <li><a href="Meme.html">Meme Page</a></li>
+            <li><a href="Craps.html">Game Page</a></li>
+            <li><a href="Palindrome.html">Palindrome Page</a></li>
+            <li><a href="UserInput.html">User Input Validation</a></li>
+            <li><a href="Chart.html">Hockey Price chart</a></li>
+            <li><a href="Boards.html">Objectives Page</a></li>
+            </ul>
+        </nav>
+    </header>
+    <footer>
+        <p>2024 Anastasia Casagrande - CSC 102</p>
+    </footer>
+    <!--Users interface -->
+    <div class="container">
+        <h2>Welcome to Your Personalized Greeting!</h2>
+        
+        <!-- Button to trigger JavaScript function -->
+        <button onclick="getPersonalizedGreeting()">Click to Enter Your Name</button>
+
+        <!-- Output will be displayed here -->
+        <div id="outputArea" class="output"></div>
+
+        <!-- Cute Fox image -->
+        <img src="Assets/cute fox.jpg" alt="Cute Fox">
+    </div>
+
+    <script>
+        //The main function to handle the personalized greeting
+        function getPersonalizedGreeting() {
+            const userName = prompt("Please enter your name:");
+
+            if (userName === null || userName.trim() === "") {
+                document.getElementById("outputArea").innerHTML = "<div class='error'>Please enter a valid name!</div>";
+                return;
+            }
+            const greeting = new Greeting(userName);
+
+            const result = greeting.generateGreeting();
+            document.getElementById("outputArea").innerHTML = result;
+        }
+
+        //greeting logic based on the user's input
+        class Greeting {
+            constructor(name) {
+                this.name = name;
+            }
+
+            //Function to generate greeting message
+            generateGreeting() {
+                if (this.name.length < 3) {
+                    return `Hello, ${this.name}! Wow, that's a short name!`;
+                } else if (this.name.length > 9) {
+                    return `Hello, ${this.name}! Your name is quite long!`;
+                } else {
+                    return this.normalGreeting();
+                }
+            }
+
+            //Standard greeting if name length is neither too short nor too long
+            normalGreeting() {
+                let message = `Hello, ${this.name}! Welcome to the website.`;
+
+                // Adding a custom greeting based on the person first letter in the name
+                const firstLetter = this.name.charAt(0).toLowerCase();
+                switch(firstLetter) {
+                    case 'a': message += " A for Amazing!"; break;
+                    case 'b': message += " B for Brilliant!"; break;
+                    case 'c': message += " C for Creative!"; break;
+                    case 'd': message += " D for Dynamic!"; break;
+                    case 'e': message += " E for Excellent!"; break;
+                    case 'f': message += " F for Fabulous!"; break;
+                    case 'g': message += " G for Gracious!"; break;
+                    case 'h': message += " H for Happy!"; break;
+                    case 'i': message += " I for Incredible!"; break;
+                    case 'j': message += " J for Joyful!"; break;
+                    case 'k': message += " K for Knowledgeable!"; break;
+                    case 'l': message += " L for Lovely!"; break;
+                    case 'm': message += " M for Magnificent!"; break;
+                    case 'n': message += " N for Noble!"; break;
+                    case 'o': message += " O for Outstanding!"; break;
+                    case 'p': message += " P for Phenomenal!"; break;
+                    case 'q': message += " Q for Quick-witted!"; break;
+                    case 'r': message += " R for Radiant!"; break;
+                    case 's': message += " S for Sensational!"; break;
+                    case 't': message += " T for Talented!"; break;
+                    case 'u': message += " U for Unique!"; break;
+                    case 'v': message += " V for Vibrant!"; break;
+                    case 'w': message += " W for Wonderful!"; break;
+                    case 'x': message += " X for X-fact!"; break;
+                    case 'y': message += " Y for Youthful!"; break;
+                    case 'z': message += " Z for Zealous!"; break;
+                    default: message += " Your name starts with an interesting letter!"; break;
+                }
+
+                //Adding a fun little breakdown of the name's characters
+                message += "<br><br>Your name contains the following letters: ";
+                for (let i = 0; i < this.name.length; i++) {
+                    message += `<span style='font-weight:bold;'>${this.name[i]}</span> `;
+                }
+
+                return message;
+            }
+        }
+    </script>
+
+</body>
+</html>
